@@ -1,26 +1,33 @@
-// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfig } from '../app.config'; // Importa el archivo de configuración
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = AppConfig.apiUrl;
+
+  private readonly TOKEN_KEY = 'token'; // Clave para el token en localStorage
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string) {
-    console.log(this.apiUrl)
-    return this.http.post(`${this.apiUrl}/auth/login`, { username, password });
+  // Función para hacer login
+  login(username: string, password: string): Observable<any> {
+    return this.http.post('https://api.example.com/auth/login', {
+      username,
+      password
+    });
   }
 
-  saveToken(token: string) {
-    localStorage.setItem(AppConfig.jwtKey, token); // Usa la clave configurada para almacenar el JWT
+  // Función para verificar si el usuario está autenticado
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    // Verificar si el token existe y no está vacío
+    return !!token;
   }
 
-  getToken() {
-    return localStorage.getItem(AppConfig.jwtKey); // Obtiene el token desde el localStorage
+  // Función para cerrar sesión
+  logout() {
+    localStorage.removeItem(this.TOKEN_KEY); // Eliminar el token del localStorage
   }
 }

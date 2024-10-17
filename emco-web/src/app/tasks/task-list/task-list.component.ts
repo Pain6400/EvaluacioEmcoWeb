@@ -2,11 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-task-list',
-  standalone: true,
-  imports: [],
-  templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.css'
+  template: `<h1>Lista de tareas</h1>`,
 })
-export class TaskListComponent {
-
-}
+export class TaskListComponent {}

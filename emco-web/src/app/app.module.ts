@@ -1,17 +1,24 @@
-// app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app.routes'; // Importa el módulo de rutas
+
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
+import { LoginComponent } from './login/login.component';
+// Importa otros componentes y servicios
 
 @NgModule({
   declarations: [
     AppComponent,
-    // Add your components here (like LoginComponent)
+    LoginComponent,
+    // Otros componentes
   ],
   imports: [
     BrowserModule,
-    FormsModule, // <-- Add FormsModule to imports
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule // Agrega el módulo de rutas aquí
   ],
   providers: [],
   bootstrap: [AppComponent]
