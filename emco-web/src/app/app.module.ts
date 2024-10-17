@@ -1,18 +1,17 @@
+// app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule para habilitar [(ngModel)]
-
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    // Add your components here (like LoginComponent)
   ],
   imports: [
     BrowserModule,
-    FormsModule // Asegúrate de incluir FormsModule aquí
+    FormsModule, // <-- Add FormsModule to imports
   ],
   providers: [],
   bootstrap: [AppComponent]

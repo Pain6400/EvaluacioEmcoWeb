@@ -1,15 +1,20 @@
-import { Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard'; // Importa el AuthGuard
-import { LoginComponent } from './login/login.component';
-import { TaskListComponent } from './tasks/task-list/task-list.component'; // Componente de lista de tareas
+// src/app/app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
+import { AppComponent } from './app.component'; // El componente principal
+import { LoginComponent } from './login/login.component'; // El componente de login
 
-export const routes: Routes = [
-  { path: 'login', component: LoginComponent }, // Ruta para el login
-  {
-    path: 'tasks',
-    component: TaskListComponent,
-    canActivate: [AuthGuard], // Protege la ruta con el AuthGuard
-  },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirige a login por defecto
-  { path: '**', redirectTo: 'login' }, // Redirige rutas no encontradas a login
-];
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent  // Asegurarte de declarar tu componente aquí
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule // Asegurarte de importar FormsModule para usar [(ngModel)]
+  ],
+  providers: [],
+  bootstrap: [AppComponent] // Componente principal que se carga al inicio
+})
+export class AppModule { }

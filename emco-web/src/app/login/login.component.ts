@@ -1,31 +1,23 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.http
-      .post('https://api.example.com/auth/login', {
-        username: this.username,
-        password: this.password,
-      })
-      .subscribe(
-        (response: any) => {
-          localStorage.setItem('token', response.access_token); // Guarda el token
-          this.router.navigate(['/tasks']); // Redirige a las tareas
-        },
-        (error) => {
-          console.error('Error al iniciar sesión:', error);
-        }
-      );
+    this.authService.login(this.username, this.password).subscribe(() => {
+      this.router.navigate(['/tasks']);
+    }, error => {
+      alert('Login failed');
+    });
   }
 }
