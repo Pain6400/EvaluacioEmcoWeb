@@ -13,7 +13,8 @@ export class AuthService {
 
   // Función para hacer login
   login(username: string, password: string): Observable<any> {
-    return this.http.post('https://api.example.com/auth/login', {
+    console.log('test')
+    return this.http.post('http://localhost:3000/auth/login', {
       username,
       password
     });

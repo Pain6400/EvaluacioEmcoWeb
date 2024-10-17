@@ -18,11 +18,33 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    this.authService.login(this.username, this.password).subscribe((response: any) => {
-      localStorage.setItem('access_token', response.access_token);  // Guarda el token
-      this.router.navigate(['/tasks']);  // Redirige a la vista de tareas
-    }, error => {
-      alert('Login failed');
-    });
+    this.authService.login(this.username, this.password).subscribe(
+      (response: any) => {
+        if (response.access_token) {
+          // Si el token está presente, guarda el token y redirige
+          localStorage.setItem('access_token', response.access_token);
+          this.router.navigate(['/tasks']).then(success => {
+            if (success) {
+              console.log('Navigation to /tasks successful');
+            } else {
+              console.log('Navigation to /tasks failed');
+            }
+          });
+        } else {
+          // Si no hay token, manejar el error aquí
+          alert('Login failed: Invalid credentials');
+        }
+      },
+      (error) => {
+        // Maneja el error devuelto por el servidor
+        if (error.error.message === 'Invalid credentials') {
+          alert('Login failed: Invalid credentials');
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+        console.log('Login error:', error); // Para depuración
+      }
+    );
   }
+
 }
